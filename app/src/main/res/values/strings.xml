@@ -3,7 +3,10 @@
     <string name="sobre">Saiba mais sobre este questionário</string>
     <string name="nome_usuario">Seu nome</string>
     <string name="greetings">Olá, vamos descobrir o seu perfil de invesrtidor?</string>
-    <string name="link">Saiba mais sobre esse questionário: <a href="https://www.bancopaulista.com.br/Arquivos/QuestionarioAPI.pdf">Aqui</a></string>
+    <string name="link">Saiba mais sobre esse questionário:
+        <a href="https://www.bancopaulista.com.br/Arquivos/QuestionarioAPI.pdf">
+            Aqui</a>
+    </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
