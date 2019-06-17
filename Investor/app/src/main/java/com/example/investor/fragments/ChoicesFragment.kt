@@ -17,8 +17,10 @@ class QuestionFragment : Fragment() {
 
     lateinit var radioButtonsIds: List<Int>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_choices, container, false)
@@ -27,38 +29,42 @@ class QuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        radioButtonsIds = listOf(choice_a_radiobutton.id,
+        var counter = 0
+
+
+        radioButtonsIds = listOf(
+            choice_a_radiobutton.id,
             choice_b_radiobutton.id,
             choice_c_radiobutton.id,
-            choice_d_radiobutton.id)
+            choice_d_radiobutton.id
+        )
         setUpQuestion()
     }
 
-    fun setUpQuestion(){
+    fun setUpQuestion() {
         val arguments = arguments
-        if (arguments != null){
-            question_textview.text = arguments.getString(BODY_KEY)
-            val options = arguments.getStringArray(OPTIONS_KEY)
-            for (i in options.indices){
-                activity?.findViewById<RadioButton>(radioButtonsIds[i])?.text = options[i]
+        if (arguments != null) {
+            question_textview.text = arguments.getString(TITLE_KEY)
+            val answers = arguments.getStringArray(ANSWERS_KEY)
+
+            for (item in answers.indices) {
+                activity?.findViewById<RadioButton>(radioButtonsIds[item])?.text = answers[item]
             }
         }
-
-
     }
 
     companion object {
-        val BODY_KEY = "body"
-        val OPTIONS_KEY = "options"
-        val ANSWER_KEY = "answer"
+        val TITLE_KEY = "title"
+        val ANSWERS_KEY = "answers"
+        val POINTS_KEY = "points"
 
-        fun newInstance(question: Questions): QuestionFragment{
+        fun newInstance(question: Questions): QuestionFragment {
             val questionFragment = QuestionFragment()
             questionFragment.arguments = Bundle().apply {
-                // salva dados do parâmetro
-                putString(BODY_KEY, question.question)
-                putStringArray(OPTIONS_KEY, question.choices.toTypedArray())
-                putInt(ANSWER_KEY, question.points)
+
+                putString(TITLE_KEY, question.question)
+                putStringArray(ANSWERS_KEY, question.choices.toTypedArray())
+                putIntArray(POINTS_KEY, question.points.toIntArray())
             }
 
             return questionFragment

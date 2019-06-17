@@ -1,6 +1,6 @@
 package com.example.investor
 
-val data = arrayListOf(
+val data = listOf(
     Pair("Por quanto tempo vc pretende deixar seu dinheiro investido?",
         listOf(
             Pair("Menos de 6 meses ", 0),
@@ -32,7 +32,7 @@ val data = arrayListOf(
             Pair("Acima de 50%", 4)
         )
     ),
-    Pair(". Caso as suas aplicações sofressem uma queda superior a 30%, o que você faria?",
+    Pair("Caso as suas aplicações sofressem uma queda superior a 30%, o que você faria?",
         listOf(
             Pair("Resgataria toda a aplicação e aplicaria na poupança", 0),
             Pair("Manteria aplicação aguardando uma melhora do mercado", 2),

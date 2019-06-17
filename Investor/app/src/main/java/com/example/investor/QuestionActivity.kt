@@ -7,14 +7,17 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.example.investor.fragments.QuestionFragment
 import kotlinx.android.synthetic.main.activity_question.*
+import kotlinx.android.synthetic.main.fragment_choices.*
+import java.util.ArrayList
+import kotlin.math.absoluteValue
 
 class QuestionActivity : AppCompatActivity() {
 
-    val TAG = "QuestionActivity"
     lateinit var questions: List<Questions>
     var currentQuestionIndex = 0
 
-    var totalPoints = 0
+    var placar = 0
+    var finalPoints = 0
 
 
 
@@ -25,11 +28,19 @@ class QuestionActivity : AppCompatActivity() {
         var yourName = intent.getStringExtra("yourName")
         textView_userName.text = "${yourName}:"
 
-        val optionsArray = resources.getStringArray(R.array.um_alt)
+        questions = listOf(
+            Questions(getString(R.string.um), resources.getStringArray(R.array.um_alt).toList(), listOf(0, 2, 3, 4)),
+            Questions(getString(R.string.dois), resources.getStringArray(R.array.dois_alt).toList(), listOf(0, 2, 3, 4)),
+            Questions(getString(R.string.tres), resources.getStringArray(R.array.tres_alt).toList(), listOf(0, 2, 3, 4)),
+            Questions(getString(R.string.quatro), resources.getStringArray(R.array.quatro_alt).toList(), listOf(0, 2, 4, 0)),
+            Questions(getString(R.string.cinco), resources.getStringArray(R.array.cinco_alt).toList(), listOf(0, 2, 4, 0)),
+            Questions(getString(R.string.seis), resources.getStringArray(R.array.seis_alt).toList(), listOf(0, 2, 3, 4)),
+            Questions(getString(R.string.sete), resources.getStringArray(R.array.sete_alt).toList(), listOf(0, 2, 3, 4)),
+            Questions(getString(R.string.oito), resources.getStringArray(R.array.oito_alt).toList(), listOf(0, 2, 3, 4)),
+            Questions(getString(R.string.nove), resources.getStringArray(R.array.nove_alt).toList(), listOf(0, 2, 3, 4))
 
-        //questions =
+        )
 
-        // para operar com fragments
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val questionFragment = QuestionFragment.newInstance(questions[currentQuestionIndex])
         fragmentTransaction.add(R.id.container, questionFragment)
@@ -45,9 +56,9 @@ class QuestionActivity : AppCompatActivity() {
 
             val choicesRadioGroup = findViewById<RadioGroup>(R.id.choices_radiogroup)
             val selectedOptionId = choicesRadioGroup.checkedRadioButtonId
-            val selectedRadioButton = findViewById<RadioButton>(selectedOptionId)
 
-            sumUp()
+            points(selectedOptionId)
+            sumUp(placar)
 
             // chama
             showNextQuestion()
@@ -71,11 +82,26 @@ class QuestionActivity : AppCompatActivity() {
             var yourFinal = textView_userName.text.toString()
             var intent = Intent(this, FinalActivity::class.java)
             intent.putExtra("yourFinal", yourFinal)
+            intent.putExtra("finalPoints", finalPoints)
             startActivity(intent)
         }
     }
 
-    fun sumUp(){
+    fun points(id:Int):Int{
+        var kjjhj = when (id){
+            R.id.choice_a_radiobutton -> questions[currentQuestionIndex].points[0]
+            R.id.choice_b_radiobutton -> questions[currentQuestionIndex].points[1]
+            R.id.choice_c_radiobutton -> questions[currentQuestionIndex].points[2]
+            R.id.choice_d_radiobutton -> questions[currentQuestionIndex].points[3]
+            else -> 0
+        }
+        placar = kjjhj
+        return placar
     }
 
+    fun sumUp(points:Int):Int{
+
+        finalPoints += points
+        return finalPoints
+    }
 }

@@ -11,6 +11,17 @@ class FinalActivity : AppCompatActivity() {
         setContentView(R.layout.activity_final)
 
         var yourFinalName = this.intent.getStringExtra("yourFinal")
-        yourResult_textView.text = "${yourFinalName}, a sua pontuacao eh de: "
+        var finalPoints = this.intent.getIntExtra("finalPoints", 0)
+        yourResult_textView.text = "${yourFinalName},\n\nSua pontuacao foi: ${finalPoints} pontos. \nIsso significa que seu perfil eh:"
+
+
+        if (finalPoints >= 30 ){
+            profile_textView.text = "Arrojado!! \n${getString(R.string.arrojado)}"
+        } else if (finalPoints >= 29 ){
+            profile_textView.text = "Mediano!! \n${getString(R.string.arrojado)}"
+        } else {
+            profile_textView.text = "Conservador!! \n${getString(R.string.arrojado)}"
+
+        }
     }
 }
